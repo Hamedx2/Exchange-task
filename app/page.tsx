@@ -1,95 +1,84 @@
-import Image from "next/image";
+"use client";
+
+import Button from "@/components/Button";
 import styles from "./page.module.css";
 
-export default function Home() {
-  return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol>
-          <li>
-            Get started by editing <code>app/page.tsx</code>.
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+import { GoArrowSwitch } from "react-icons/go";
+import { useState } from "react";
 
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.secondary}
-          >
-            Read our docs
-          </a>
+function Page() {
+  const [selectedCurrency, setSelectedCurrency] = useState("IRR");
+
+  function handleSwitchCurrencies() {
+    setSelectedCurrency((currency) => {
+      if (currency === "IRR") {
+        return "USD";
+      }
+      return "IRR";
+    });
+  }
+
+  return (
+    <div className={styles.container}>
+      <h1>Exchange Currencies</h1>
+      <form className={styles.exchangeForm}>
+        <div
+          className={`${styles.formInput} ${
+            selectedCurrency === "USD"
+              ? styles.firstFormInput
+              : styles.secondFormInput
+          }`}
+        >
+          <label htmlFor="usd">
+            USD <span>(United State of America`s Dollar)</span>
+          </label>
+          <input
+            id="usd"
+            name="usdAmount"
+            placeholder={
+              selectedCurrency === "IRR"
+                ? "USD amount"
+                : "Enter the amount of USD"
+            }
+            disabled={selectedCurrency === "IRR"}
+          />
         </div>
-      </main>
-      <footer className={styles.footer}>
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
+        <div
+          className={`${styles.formInput} ${
+            selectedCurrency === "IRR"
+              ? styles.firstFormInput
+              : styles.secondFormInput
+          }`}
         >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
+          <label htmlFor="irr">
+            IRR <span>(Iran`s Rial)</span>
+          </label>
+          <input
+            id="irr"
+            name="irrAmount"
+            placeholder={
+              selectedCurrency === "USD"
+                ? "IRR amount"
+                : "Enter the amount of IRR"
+            }
+            disabled={selectedCurrency === "USD"}
           />
-          Learn
-        </a>
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+        </div>
+        <div className={styles.answerContainer}>
+          <h2>
+            <span>10</span> dollor is <span>9,000,000</span> rials
+          </h2>
+          <p>USD to IRR exchage rate: 1 USD = 900,000 IRR</p>
+        </div>
+        <div className={styles.actions}>
+          <Button type={null}>Clear Form</Button>
+          <Button type="change" handleClick={handleSwitchCurrencies}>
+            <GoArrowSwitch />
+          </Button>
+        </div>
+      </form>
     </div>
   );
 }
+
+export default Page;
