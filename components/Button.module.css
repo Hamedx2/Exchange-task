@@ -22,9 +22,9 @@
   padding: 1rem 1.1rem;
   border-radius: 50%;
   border: none;
-  top: 20%;
+  top: 15%;
   right: 50%;
-  transform: translate(17px, -6px);
+  transform: translate(17px, 0px);
   background-color: #ccc;
   font-size: 1.6rem;
   font-weight: 700;
